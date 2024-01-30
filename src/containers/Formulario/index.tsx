@@ -25,7 +25,7 @@ const Formulario = () => {
       9
     )
     dispatch(cadastrar(tarefaParaAdicionar))
-    navigate(newLocal)
+    navigate('/')
   }
 
   return (
