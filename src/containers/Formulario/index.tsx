@@ -2,7 +2,6 @@ import { FormEvent, useState } from 'react'
 import { Titulo, MainContainer, BotaoSalvar } from '../../styles'
 import { useDispatch } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
-import Tarefa from '../../models/Tarefa'
 import { cadastrar } from '../../store/reducers/tarefas'
 import { Campo } from '../../styles/'
 import * as S from './styles'
@@ -10,21 +9,22 @@ import * as enums from '../../utils/unums/Tarefa'
 
 const Formulario = () => {
   const dispatch = useDispatch()
-  const navigate = useNavigate
+  const navigate = useNavigate()
   const [titulo, setTitulo] = useState('')
   const [descricao, setdescricao] = useState('')
   const [prioridade, setprioridade] = useState(enums.Prioridade.NORMAL)
 
   const cadastrarTarefa = (evento: FormEvent) => {
     evento.preventDefault()
-    const tarefaParaAdicionar = new Tarefa(
-      titulo,
-      prioridade,
-      enums.Status.PENDENTE,
-      descricao,
-      9
+
+    dispatch(
+      cadastrar({
+        titulo,
+        prioridade,
+        descricao,
+        status: enums.Status.PENDENTE
+      })
     )
-    dispatch(cadastrar(tarefaParaAdicionar))
     navigate('/')
   }
 
